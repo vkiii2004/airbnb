@@ -53,7 +53,6 @@ app.use(methodOverride("_method"));
 app.engine("ejs",ejsMate);
 app.use(express.static(path.join(__dirname,"/public")));
 
-
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     crypto:{
@@ -69,7 +68,9 @@ store.on("error",(err)=>{
     console.error("Session store error:", err);
 });
 
+
 const sessionOptions = {
+    store,
     secret:process.env.SECRET,
     resave: false,
     saveUninitialized:true,
@@ -79,6 +80,10 @@ const sessionOptions = {
         httpOnly:true 
     },
 };
+
+
+
+
 
 app.get("/",(req,res)=>{
     res.redirect("/listings");
