@@ -38,10 +38,6 @@ main()
 async function main(){
     try {
         await mongoose.connect( dbUrl, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of 30s
-            family: 4 // Use IPv4, skip trying IPv6
         });
         console.log("Successfully connected to MongoDB Atlas");
     } catch (error) {
