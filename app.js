@@ -65,8 +65,7 @@ const store = MongoStore.create({
     },
     touchAfter:24*3600,
     mongoOptions: {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
+        ssl: true,
     }
 });
 
@@ -85,9 +84,9 @@ const sessionOptions = {
     },
 };
 
-// app.get("/",(req,res)=>{
-//     res.send("hi");
-// });
+app.get("/",(req,res)=>{
+    res.redirect("/listings");
+});
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -112,9 +111,9 @@ app.use("/listings",listingsRouter );
 app.use("/listings/:id/reviews",reviewsRouter );
 app.use("/",userRouter );
 
-// app.all("*", (req, res, next) => {
-//     next(new ExpressError(404, "Page Not Found!"));
-// });
+app.all("*", (req, res, next) => {
+    next(new ExpressError(404, "Page Not Found!"));
+});
 
 
 app.use((err, req, res, next) => {
